@@ -13,10 +13,7 @@ const routes = [
     {
         name: 'About',
         path: '/about',
-        component: AboutPage,
-        requires: [
-            'AboutPage'
-        ]
+        component: AboutPage
     }
 ];
 

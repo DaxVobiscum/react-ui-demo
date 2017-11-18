@@ -1,14 +1,18 @@
 import React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { RouteController } from './routes';
+
+import { Components } from './constants';
 
 function AppController() {
     
     return (
-        <div>
-            <h1>React UI Demo</h1>
-            <RouteController />
-        </div>
+        <MuiThemeProvider>
+            <RouteController 
+                components={Components}
+            />
+        </MuiThemeProvider>
     );
 }
 
