@@ -1,5 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
 
 import routes from './constants';
 
@@ -11,8 +13,15 @@ class RouteController extends React.Component {
         
         super(props);
         
+        this.state = {
+            activeRoute: null,
+            drawerOpen: false,
+            title: 'React UI Demo'
+        };
+        
         this.generateLinks = this.generateLinks.bind(this);
         this.generateRoutes = this.generateRoutes.bind(this);
+        this.openDrawer = this.openDrawer.bind(this);
     }
     
     generateLinks() {
@@ -20,9 +29,9 @@ class RouteController extends React.Component {
         return routes.map(route => {
             
             return (
-                <li key={shortid.generate()}>
+                <MenuItem key={shortid.generate()}>
                     <Link to={route.path}>{route.name}</Link>
-                </li>
+                </MenuItem>
             );
         });
     }
@@ -32,14 +41,27 @@ class RouteController extends React.Component {
         return routes.map(route => <Route key={shortid.generate()} {...route.props} path={route.path} component={route.component} />);
     }
     
+    openDrawer() {
+        
+        console.log('Drawer toggled.');
+        
+        this.setState((prevState, props) => {
+            
+            return { drawerOpen: !prevState.drawerOpen };
+        });
+    }
+    
     render() {
+        
+        var TitleBar = this.props.components['TitleBar'];
         
         return (
             <BrowserRouter>
                 <div>
-                    <ul>
+                    <TitleBar title={this.state.title} />
+                    <Drawer open={this.state.drawerOpen}>
                         {this.generateLinks()}
-                    </ul>
+                    </Drawer>
                     <Switch>
                         {this.generateRoutes()}
                     </Switch>
