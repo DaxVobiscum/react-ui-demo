@@ -16,8 +16,8 @@ gulp.task("css", () => {
     return gulp.src(cssSrcGlob)
         .pipe(sourcemaps.init())
         .pipe(less())
-        .pipe(sourcemaps.write("./"))
         .pipe(rename("app.css"))
+        .pipe(sourcemaps.write("./"))
         .pipe(gulp.dest("build/app"));
 });
 
@@ -39,6 +39,8 @@ gulp.task("js-update", [ "js" ], () => {
     return gulp.src("build/app/app.js*")
         .pipe(gulp.dest("public/app"));
 });
+
+gulp.task("publish", [ "css-update", "js-update" ]);
 
 gulp.task("dev", [ "css-update", "js-update" ], () => {
     
