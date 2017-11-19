@@ -6,7 +6,7 @@ const routes = [
         name: 'Home',
         path: '/',
         component: HomePage,
-        props: {
+        config: {
             exact: true
         }
     },
@@ -17,4 +17,4 @@ const routes = [
     }
 ];
 
-export default routes;
+export { routes as Routes };

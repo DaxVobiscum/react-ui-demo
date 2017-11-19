@@ -16,10 +16,12 @@ class TitleBar extends React.Component {
         return (
             <AppBar 
                 title={this.props.title}
+                iconElementLeft={
+                    <IconButton onClick={this.props.menuOpen}>
+                        <Icon name="menu" />
+                    </IconButton>
+                }
             >
-                <IconButton>
-                    <Icon />
-                </IconButton>
             </AppBar>
         );
     }

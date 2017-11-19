@@ -11,7 +11,7 @@ class Icon extends React.Component {
     
     render() {
         
-        return <FontIcon className="material-icons" color={white}>face</FontIcon>
+        return <FontIcon className="material-icons" color={white}>{this.props.name}</FontIcon>
     }   
 }
 
