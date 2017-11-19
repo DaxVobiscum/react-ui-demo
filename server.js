@@ -7,7 +7,14 @@ var serverPort = process.env.PORT || '8080';
 
 var app = express();
 
-app.use(express.static('public'));
+var appRoot = path.resolve(__dirname, 'public');
+
+app.use(express.static(appRoot));
+
+app.get('*', function (req, res) {
+    
+    res.sendFile(path.resolve(appRoot, 'index.html'));
+});
 
 app.listen(serverPort, serverHost, function () {
     

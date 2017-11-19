@@ -1,8 +1,8 @@
 var path = require("path");
 
 var gulp = require("gulp");
+var concat = require("gulp-concat");
 var less = require("gulp-less");
-var rename = require("gulp-rename");
 var sourcemaps = require("gulp-sourcemaps");
 var webpack = require("webpack-stream");
 
@@ -16,7 +16,7 @@ gulp.task("css", () => {
     return gulp.src(cssSrcGlob)
         .pipe(sourcemaps.init())
         .pipe(less())
-        .pipe(rename("app.css"))
+        .pipe(concat("app.css"))
         .pipe(sourcemaps.write("./"))
         .pipe(gulp.dest("build/app"));
 });
