@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import RouteFrame from './RouteFrame.jsx';
 import RouteView from './RouteView.jsx';
 
-var _ = require("underscore");
+var routeChangeCallbacks = [ ];
 
 class RouteController extends React.Component {
     
@@ -12,11 +12,30 @@ class RouteController extends React.Component {
         
         super(props);
         
-        this.state = {
-            activeRoute: null,
-            routeChanging: false,
-            title: 'React UI Demo'
-        };
+        this.routeUpdate = this.routeUpdate.bind(this);
+        this.onRouteChange = this.onRouteChange.bind(this);
+    }
+    
+    routeUpdate(changeInProgress, routeName) {
+        
+        if (changeInProgress) {
+            
+            console.log('Route changing...');
+        }
+        else {
+            
+            console.log('Route change complete.');
+            
+            for (let callback of routeChangeCallbacks) {
+                
+                callback(routeName);
+            }
+        }
+    }
+    
+    onRouteChange(callback) {
+        
+        routeChangeCallbacks.push(callback);
     }
     
     render() {
@@ -28,11 +47,11 @@ class RouteController extends React.Component {
                 <div>
                     <RouteFrame
                         titleBar={TitleBar}
-                        title={this.state.title}
-                        routeChanging={this.state.routeChanging}
+                        routeChanging={this.routeUpdate}
+                        onRouteChange={this.onRouteChange}
                     />
                     <RouteView
-                        routeChanging={this.state.routeChanging}
+                        routeChanging={this.routeUpdate}
                     />
                 </div>
             </BrowserRouter>

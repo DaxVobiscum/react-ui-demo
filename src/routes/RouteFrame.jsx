@@ -15,14 +15,15 @@ class RouteFrame extends React.Component {
         super(props);
         
         this.state = {
-            routeChanging: this.props.routeChanging,
             drawerOpen: false,
             drawerOpening: false,
-            links: [ ]
+            links: [ ],
+            title: null
         };
         
         this.openDrawer = this.openDrawer.bind(this);
         this.closeDrawer = this.closeDrawer.bind(this);
+        this.updateTitle = this.updateTitle.bind(this);
     }
     
     componentDidMount() {
@@ -33,14 +34,20 @@ class RouteFrame extends React.Component {
                 <MenuItem key={shortid.generate()}>
                     <RouteChanger 
                         path={route.path} 
-                        text={route.name}
-                        routeChanging={this.state.routeChanging}
+                        name={route.name}
+                        routeChanging={this.props.routeChanging}
+                        updateTitle={this.updateTitle}
                     />
                 </MenuItem>
             );
         });
         
         this.setState({ links });
+        
+        this.props.onRouteChange((routeName) => {
+            
+            this.updateTitle(routeName);
+        });
         
         document.body.addEventListener('click', this.closeDrawer);
     }
@@ -81,6 +88,11 @@ class RouteFrame extends React.Component {
             }
         });
     }
+    
+    updateTitle(newTitle) {
+        
+        this.setState({ title: newTitle });
+    }
 
     render() {
         
@@ -88,7 +100,7 @@ class RouteFrame extends React.Component {
         
         return (
             <div>
-                <TitleBar title={this.props.title} menuOpen={this.openDrawer} />
+                <TitleBar title={this.state.title} menuOpen={this.openDrawer} />
                 <Drawer open={this.state.drawerOpen}>
                     {this.state.links}
                 </Drawer>

@@ -15,14 +15,16 @@ class ChangerBase extends React.Component {
         
         this.props.history.push(this.props.path);
         
-        e.preventDefault();
+        this.props.routeChanging(true);
+        
+        this.props.updateTitle(this.props.name);
     }
     
     render() {
         
         return (
             <FlatButton onClick={this.routeChange}>
-                {this.props.text}
+                {this.props.name}
             </FlatButton>
         );
     }
