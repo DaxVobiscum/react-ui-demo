@@ -33,16 +33,10 @@ class RouteView extends React.Component {
                             var WrappedRoute = withRouter(RouteContainer);
                             
                             return (
-                                <WrappedRoute 
+                                <WrappedRoute
+                                    name={route.name}
                                     component={route.component} 
-                                    onRouteReady={
-                                        () => {
-                                            
-                                            // this.setState({ routeChanging: false });
-                                            
-                                            this.props.routeChanging = false;
-                                        }
-                                    }
+                                    routeChanging={this.props.routeChanging}
                                 />
                             );
                         }
